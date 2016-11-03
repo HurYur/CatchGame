@@ -1,6 +1,9 @@
 var basketwidth,
-    sreenSize = window.innerWidth,
+    basketheight,
+    sreenSizeX = window.innerWidth,
+    sreenSizeY = window.innerHeight,
     objects=1,
+    basket_top,
     basket_left_side,
     basket_right_side;
 
@@ -11,7 +14,13 @@ function do_game() {
 
 function basket(){
     basketwidth = 100;
-    document.getElementById("basket").style.width = basketwidth+"px";
+    basketheight = 50;
+    var basket = document.getElementById("basket");
+    basket.style.width = basketwidth + "px";
+    basket.style.height = basketheight + "px";
+    basket_top = sreenSizeY*0.9 - basketheight;
+    document.getElementById("game-window").style.height=sreenSizeY*0.9 + "px";
+    basket.style.top= basket_top+"px";
 }
 
 function basketmove(event) {
@@ -19,7 +28,7 @@ function basketmove(event) {
         basket_center = basketwidth/2;
         basket_left_side = mouseX - basket_center;
         basket_right_side = mouseX + basket_center;
-    if(basket_left_side >= 0 && basket_right_side <= sreenSize){
+    if(basket_left_side >= 0 && basket_right_side <= sreenSizeX){
         document.getElementById("basket").style.left = basket_left_side+"px";
     }
 }
@@ -36,7 +45,7 @@ function objectsCreator() {
     objects ++;
 }
 function rand_position() {
-    return Math.floor(Math.random()*sreenSize);
+    return Math.floor(Math.random()*sreenSizeX);
 }
 
 function objectsFalling() {
@@ -46,7 +55,8 @@ function objectsFalling() {
         var value = 0;
         value = hmlObj[i].style.top;
         hmlObj[i].style.top = parseFloat(value)+1+"px";
-        if (parseFloat(hmlObj[i].style.left) > basket_left_side &&
+        if (parseFloat(hmlObj[i].style.top) >= basket_top &&
+            parseFloat(hmlObj[i].style.left) > basket_left_side &&
             parseFloat(hmlObj[i].style.left) < basket_right_side){
             hmlObj[i].parentElement.removeChild(hmlObj[i]);
         }
