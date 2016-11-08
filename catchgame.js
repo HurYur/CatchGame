@@ -41,7 +41,7 @@ function objectsCreator() {
     object.setAttribute("src", "imgs/HTML.png");
 
     document.getElementById('game-window').appendChild(object);
-    setTimeout(objectsCreator, 4000);
+    setTimeout(objectsCreator, 2000);
     objects ++;
 }
 function rand_position() {
@@ -50,16 +50,19 @@ function rand_position() {
 
 function objectsFalling() {
     var hmlObj= document.getElementsByClassName("html");
-    var quantity = hmlObj.length;
+    var quantity = hmlObj.length,
+        correct=0;
     for(var i=0; i <quantity; i++){
         var value = 0;
-        value = hmlObj[i].style.top;
-        hmlObj[i].style.top = parseFloat(value)+1+"px";
-        if (parseFloat(hmlObj[i].style.top) >= basket_top &&
-            parseFloat(hmlObj[i].style.left) > basket_left_side &&
-            parseFloat(hmlObj[i].style.left) < basket_right_side){
-            hmlObj[i].parentElement.removeChild(hmlObj[i]);
+        value = hmlObj[i-correct].style.top;
+        hmlObj[i-correct].style.top = parseFloat(value)+2+"px";
+        if (parseFloat(hmlObj[i-correct].style.top) >= basket_top &&
+            parseFloat(hmlObj[i-correct].style.left) > basket_left_side &&
+            parseFloat(hmlObj[i-correct].style.left) < basket_right_side){
+            hmlObj[i-correct].parentElement.removeChild(hmlObj[i-correct]);
+            correct=1;
         }
+        else {correct=0}
     }
     setTimeout(objectsFalling, 10);
 }
