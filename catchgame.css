@@ -1,6 +1,30 @@
 body{
     padding: 0;
     margin: 0;
+    font-family: Arial;
+}
+#start-window{
+    width: 40%;
+    height: 40%;
+    position: absolute;
+    top: 30%;
+    left: 30%;
+    background: lightsalmon;
+    text-align: center;
+}
+#start-window h1{
+    text-transform: uppercase;
+
+}
+#start-window button{
+    background: orange;
+    color: white;
+    font: 20px white;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin-right: 20px;
+
 }
 .game-window{
     width: 100%;

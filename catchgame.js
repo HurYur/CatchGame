@@ -5,9 +5,13 @@ var basketwidth,
     objects=1,
     basket_top,
     basket_left_side,
-    basket_right_side;
+    basket_right_side,
+    difficulty;
 
-function do_game() {
+/* start the game */
+function do_game(diffi) {
+    document.getElementById('start-window').style.display="none";
+    difficulty=diffi;
     objectsCreator();
     objectsFalling();
 }
@@ -23,6 +27,7 @@ function basket(){
     basket.style.top= basket_top+"px";
 }
 
+/* Moving the basket */
 function basketmove(event) {
     var mouseX = event.clientX,
         basket_center = basketwidth/2;
@@ -33,36 +38,41 @@ function basketmove(event) {
     }
 }
 
+/* Here add's objects */
 function objectsCreator() {
     object = document.createElement('img');
     object.style.top = 0+"px";
     object.style.left = rand_position()+"px";
     object.setAttribute("class", "html");
+    object.setAttribute("id", "ob"+objects);
     object.setAttribute("src", "imgs/HTML.png");
 
     document.getElementById('game-window').appendChild(object);
-    setTimeout(objectsCreator, 2000);
+    setTimeout(objectsCreator, 1000*difficulty);
     objects ++;
 }
+/* Start position generation */
 function rand_position() {
-    return Math.floor(Math.random()*sreenSizeX);
+    return Math.floor(Math.random()*(sreenSizeX-50));
 }
 
+/* Changing falling objects position and removing catched  */
 function objectsFalling() {
     var hmlObj= document.getElementsByClassName("html");
-    var quantity = hmlObj.length,
-        correct=0;
+    var realquantity = quantity = hmlObj.length;
     for(var i=0; i <quantity; i++){
-        var value = 0;
-        value = hmlObj[i-correct].style.top;
-        hmlObj[i-correct].style.top = parseFloat(value)+2+"px";
-        if (parseFloat(hmlObj[i-correct].style.top) >= basket_top &&
-            parseFloat(hmlObj[i-correct].style.left) > basket_left_side &&
-            parseFloat(hmlObj[i-correct].style.left) < basket_right_side){
-            hmlObj[i-correct].parentElement.removeChild(hmlObj[i-correct]);
-            correct=1;
+        if(quantity==realquantity) {// if deleted catched some block cycle finish
+            var value = 0;
+            value = hmlObj[i].style.top;
+            hmlObj[i].style.top = parseFloat(value) + 2 + "px";
+            /* deleting catched block*/
+            if (parseFloat(hmlObj[i].style.top) >= basket_top &&
+                parseFloat(hmlObj[i].style.left) > basket_left_side &&
+                parseFloat(hmlObj[i].style.left) < basket_right_side) {
+                hmlObj[i].parentElement.removeChild(hmlObj[i]);
+                realquantity--;
+            }
         }
-        else {correct=0}
     }
-    setTimeout(objectsFalling, 10);
+    setTimeout(objectsFalling, 15);
 }

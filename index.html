@@ -9,6 +9,11 @@
 	<div id="game-window" class="game-window" onmousemove="basketmove(event)">
 		<div id="basket"></div>
 	</div>
-	<button onclick="do_game()">Start</button>
+	<div id="start-window">
+		<h1>choose the difficulty level and click to start</h1>
+		<button onclick="do_game('1')">Junior</button>
+		<button onclick="do_game('0.75')">Middle</button>
+		<button onclick="do_game('0.55')">Senior</button>
+	</div>
 </body>
 </html>
