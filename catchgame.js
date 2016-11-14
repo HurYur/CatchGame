@@ -5,10 +5,13 @@ var basketwidth,
     objects=1,
     basket_top,
     basket_left_side,
-    basket_right_side;
+    basket_right_side,
+    difficulty;
 
 /* start the game */
-function do_game() {
+function do_game(diffi) {
+    document.getElementById('start-window').style.display="none";
+    difficulty=diffi;
     objectsCreator();
     objectsFalling();
 }
@@ -45,12 +48,12 @@ function objectsCreator() {
     object.setAttribute("src", "imgs/HTML.png");
 
     document.getElementById('game-window').appendChild(object);
-    setTimeout(objectsCreator, 1000);
+    setTimeout(objectsCreator, 1000*difficulty);
     objects ++;
 }
 /* Start position generation */
 function rand_position() {
-    return Math.floor(Math.random()*sreenSizeX);
+    return Math.floor(Math.random()*(sreenSizeX-50));
 }
 
 /* Changing falling objects position and removing catched  */
